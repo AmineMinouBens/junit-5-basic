@@ -12,8 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class BasicTestsTest {
+class BasicTest {
 
     static final Logger log = getLogger(lookup().lookupClass());
 
@@ -49,6 +54,33 @@ class BasicTestsTest {
 
         // verify
         Assertions.assertTrue(phrase.equals("hello world"));
+    }
+
+    @Test
+    void assertJTest() {
+        log.debug("Assertions using AssertJ");
+
+        int sum = 1 + 1;
+
+        assertThat(sum).isGreaterThan(1).isLessThan(3);
+        assertThat(sum).isEqualTo(2);
+    }
+
+    @Test
+    void standardAssertions() {
+        assertEquals(2, 2);
+        assertTrue(true,
+                "The optional assertion message is now the last parameter");
+        assertFalse(false, () -> "Really " + "expensive " + "message" + ".");
+    }
+
+    @Test
+    void truthTest() {
+        log.debug("Assertion using Truth");
+
+        int sum = 1 + 1;
+
+        assertThat(sum).isEqualTo(2);
     }
 
     @AfterEach
